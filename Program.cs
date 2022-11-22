@@ -12,14 +12,14 @@ namespace Benchmark
     {
         private static HttpClient _httpClient;
 
-        [Params(1)]
+        [Params(1, 5)]
         public int N;
 
         [GlobalSetup]
         public void GlobalSetup()
         {
             _httpClient = new HttpClient();
-            _httpClient.BaseAddress = new Uri("https://localhost:44336/api/app");
+            _httpClient.BaseAddress = new Uri("https://localhost:44336");
             _httpClient.DefaultRequestHeaders.Add("accept", "application/json");
         }
 
@@ -28,7 +28,7 @@ namespace Benchmark
         {
             for (int i = 0; i < N; i++)
             {
-                var response = await _httpClient.GetAsync("/register-of-examination/from-repo");
+                var response = await _httpClient.GetAsync("/api/app/register-of-examination/from-repo");
             }
         }
 
@@ -37,7 +37,7 @@ namespace Benchmark
         {
             for (int i = 0; i < N; i++)
             {
-                var response = await _httpClient.GetAsync("/register-of-examination/then-order-by");
+                var response = await _httpClient.GetAsync("/api/app/register-of-examination/then-order-by");
             }
         }
     }
